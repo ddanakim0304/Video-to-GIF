@@ -129,12 +129,12 @@ class VideoToGifConverter(QWidget):
                 
                 # If file is too large, try reducing quality until it fits
                 attempts = 0
-                while os.path.getsize(save_path) > max_file_size and attempts < 3:
+                while os.path.getsize(save_path) > max_file_size and attempts < 5:
                     os.remove(save_path)  # Remove the oversized file
                     attempts += 1
                     
                     # Reduce quality with each attempt
-                    scale_factor *= 0.7  # Reduce size by 30%
+                    scale_factor *= 0.5  # Reduce size by 30%
                     fps = max(5, int(initial_fps * (0.8 ** attempts)))  # Reduce FPS by 20% each time
                     
                     success = self.convert_with_ffmpeg(self.video_path, save_path, scale_factor, fps)
