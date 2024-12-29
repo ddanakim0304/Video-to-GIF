@@ -59,7 +59,7 @@ class VideoToGifConverter(QWidget):
             self.label.setText(f"Selected Video: {os.path.basename(file_path)}")
             self.convert_button.setEnabled(True)
 
-    def convert_with_ffmpeg(self, input_path, output_path, scale_factor=1.0, fps=10):
+    def convert_with_ffmpeg(self, input_path, output_path, scale_factor=1.0, fps=5):
         """Convert video to GIF using FFmpeg with specified scaling and FPS."""
         try:
             # Calculate new width (height will scale automatically)
@@ -134,7 +134,7 @@ class VideoToGifConverter(QWidget):
                     attempts += 1
                     
                     # Reduce quality with each attempt
-                    scale_factor *= 0.5  # Reduce size by 30%
+                    scale_factor *= 0.7  # Reduce size by 30%
                     fps = max(5, int(initial_fps * (0.8 ** attempts)))  # Reduce FPS by 20% each time
                     
                     success = self.convert_with_ffmpeg(self.video_path, save_path, scale_factor, fps)
